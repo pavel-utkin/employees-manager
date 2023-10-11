@@ -1,16 +1,16 @@
 package rest
 
 import (
-	"log"
 	"net/http"
 )
 
 func (s Handler) Find(w http.ResponseWriter, r *http.Request) {
-	log.Println("Method find")
-	log.Println(r.FormValue("Name"))
-	_, err := s.employee.Find(r.FormValue("Name"))
+	s.log.Println("Form Value : ", r.FormValue("searchString"))
+	_, err := s.employee.Find(r.FormValue("searchString"))
 	if err != nil {
-		//logrus.Fatal(err)
+		s.log.Println("Employee find err : ", err)
+		w.WriteHeader(http.StatusNotFound)
+		return
 	}
 	w.WriteHeader(http.StatusOK)
 }

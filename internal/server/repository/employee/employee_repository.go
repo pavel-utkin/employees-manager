@@ -15,37 +15,43 @@ func New(db *database.DB) *Employee {
 	}
 }
 
-/*
-type Constructor interface {
-	Hire(user *model.UserRequest) (*model.User, error)
-	GetNumberOfVacationDays(userRequest *model.UserRequest) (*model.User, error)
-	Fire(username string) (bool, error)
-	Find(username string) (bool, error)
-}*/
-
-func (e Employee) Hire() (*models.Employee, error) {
+func (e Employee) Hire(newEmployee *models.Employee) (*models.Employee, error) {
 	registeredEmployee := &models.Employee{}
 	if err := e.db.Pool.QueryRow(
-		"INSERT INTO Employee (Name) VALUES ($1) RETURNING ID",
-		registeredEmployee.Name,
+		"INSERT INTO Employee (Name,Gender,Phone,Email,Address,VacationDays) VALUES (?,?,?,?,?,?)",
+		newEmployee.Name,
+		newEmployee.Gender,
+		newEmployee.Phone,
+		newEmployee.Email,
+		newEmployee.Address,
+		newEmployee.VacationDays,
 	).Scan(&registeredEmployee.ID); err != nil {
 		return nil, err
 	}
 	return registeredEmployee, nil
 }
 
-func (e Employee) GetNumberOfVacationDays() {
-
+func (e Employee) GetNumberOfVacationDays(employeeId int64) (float64, error) {
+	var vacationDays float64
+	if err := e.db.Pool.QueryRow("SELECT VacationDays FROM Employee where ID = ?",
+		employeeId,
+	).Scan(&vacationDays); err != nil {
+		return vacationDays, err
+	}
+	return vacationDays, nil
 }
 
-func (e Employee) Fire() {
-
+func (e Employee) Fire(employeeId int64) error {
+	err := e.db.Pool.QueryRow("DELETE FROM Employee where ID = ?",
+		employeeId,
+	).Err()
+	return err
 }
 
-func (e Employee) Find(name string) (int64, error) {
+func (e Employee) Find(pattern string) (int64, error) {
 	var id int64
-	if err := e.db.Pool.QueryRow("SELECT ID FROM Employee where Name = ?",
-		name,
+	if err := e.db.Pool.QueryRow("SELECT ID FROM Employee where Name LIKE ?",
+		pattern,
 	).Scan(&id); err != nil {
 		return id, err
 	}
