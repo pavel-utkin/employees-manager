@@ -5,14 +5,12 @@ import (
 	"employees-manager/internal/server/database"
 	"employees-manager/internal/server/repository/employee"
 	"github.com/sirupsen/logrus"
-	"go/token"
 )
 
 type Handler struct {
 	database *database.DB
 	config   *config.Config
 	employee *employee.Employee
-	token    *token.Token
 	log      *logrus.Logger
 }
 

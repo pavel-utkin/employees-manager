@@ -15,9 +15,8 @@ func New(db *database.DB) *Employee {
 	}
 }
 
-func (e Employee) Hire(newEmployee *models.Employee) (*models.Employee, error) {
-	registeredEmployee := &models.Employee{}
-	if err := e.db.Pool.QueryRow(
+func (e Employee) Hire(newEmployee *models.Employee) error {
+	_, err := e.db.Pool.Exec(
 		"INSERT INTO Employee (Name,Gender,Phone,Email,Address,VacationDays) VALUES (?,?,?,?,?,?)",
 		newEmployee.Name,
 		newEmployee.Gender,
@@ -25,10 +24,8 @@ func (e Employee) Hire(newEmployee *models.Employee) (*models.Employee, error) {
 		newEmployee.Email,
 		newEmployee.Address,
 		newEmployee.VacationDays,
-	).Scan(&registeredEmployee.ID); err != nil {
-		return nil, err
-	}
-	return registeredEmployee, nil
+	)
+	return err
 }
 
 func (e Employee) GetNumberOfVacationDays(employeeId int64) (float64, error) {
