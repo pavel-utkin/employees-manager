@@ -1,9 +1,11 @@
 package router
 
 import (
+	_ "employees-manager/docs"
 	"employees-manager/internal/server/api/rest"
 	"employees-manager/internal/server/middleware"
 	"github.com/go-chi/chi/v5"
+	httpSwagger "github.com/swaggo/http-swagger"
 )
 
 func Route(s *rest.Handler) *chi.Mux {
@@ -17,5 +19,8 @@ func Route(s *rest.Handler) *chi.Mux {
 			r.Get("/find", middleware.BasicAuth(s.Find))
 		})
 	})
+	r.Get("/swagger/*", httpSwagger.Handler(
+		httpSwagger.URL("http://localhost:8088/swagger/doc.json"), //The url pointing to API definition
+	))
 	return r
 }

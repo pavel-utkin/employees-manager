@@ -5,6 +5,16 @@ import (
 	"net/http"
 )
 
+// Find
+// @Tags GET
+// @Summary Найти сотрудника по ФИО.
+// @ID findGet
+// @Produce plain
+// @Param searchString query string false "ФИО"
+// @Success 200
+// @Failure 404
+// @Failure 500
+// @Router /api/employee/find{searchString} [GET]
 func (s Handler) Find(w http.ResponseWriter, r *http.Request) {
 	s.log.Info("Form Value : ", r.FormValue("searchString"))
 	employee, err := s.employee.Find(r.FormValue("searchString"))

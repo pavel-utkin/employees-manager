@@ -14,6 +14,22 @@ import (
 	"syscall"
 )
 
+// @Title employees-manager
+// @Description микросервис по сотрудникам
+// @Version 1.0
+
+// @contact.name Pavel Utkin
+// @contact.url https://t.me/utkin_pawka
+// @contact.email pavel@utkin-pro.ru
+
+// @Tag.name Update
+// @Tag.description "микросервис по сотрудникам"
+
+// @Tag.name Value
+// @Tag.description "микросервис по сотрудникам"
+
+// @Tag.name Static
+// @Tag.description "микросервис по сотрудникам"
 func main() {
 
 	logger := logrus.New()

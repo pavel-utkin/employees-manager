@@ -10,6 +10,22 @@ import (
 	"net/http"
 )
 
+// Hire
+// @Tags POST
+// @Summary Нанять сотрудника.
+// @ID hirePOST
+// @Produce plain
+// @Param name query string false "ФИО"
+// @Param gender query string false "Пол"
+// @Param age query string false "Возраст"
+// @Param phone query string false "Телефон"
+// @Param email query string false "Электронная почта"
+// @Param address query string false "Адрес прописки"
+// @Success 200
+// @Failure 400
+// @Failure 404
+// @Failure 500
+// @Router /api/employee/hire [POST]
 func (s Handler) Hire(w http.ResponseWriter, r *http.Request) {
 	registeredEmployee := &models.Employee{}
 

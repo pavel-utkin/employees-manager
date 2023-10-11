@@ -1,0 +1,99 @@
+info:
+  contact:
+    email: pavel@utkin-pro.ru
+    name: Pavel Utkin
+    url: https://t.me/utkin_pawka
+  description: микросервис по сотрудникам
+  title: employees-manager
+  version: "1.0"
+paths:
+  /api/employee/find{searchString}:
+    get:
+      operationId: findGet
+      parameters:
+      - description: ФИО
+        in: query
+        name: searchString
+        type: string
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      summary: Найти сотрудника по ФИО.
+      tags:
+      - GET
+  /api/employee/get-number-of-vacation-days{employeeID}:
+    get:
+      operationId: getNumberOfVacationDaysGet
+      parameters:
+      - description: идентификатор сотрудника
+        in: query
+        name: employeeID
+        type: string
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      summary: Получить количество дней отпуска.
+      tags:
+      - GET
+  /api/employee/hire:
+    post:
+      operationId: hirePOST
+      parameters:
+      - description: ФИО
+        in: query
+        name: name
+        type: string
+      - description: Пол
+        in: query
+        name: gender
+        type: string
+      - description: Возраст
+        in: query
+        name: age
+        type: string
+      - description: Телефон
+        in: query
+        name: phone
+        type: string
+      - description: Электронная почта
+        in: query
+        name: email
+        type: string
+      - description: Адрес прописки
+        in: query
+        name: address
+        type: string
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      summary: Нанять сотрудника.
+      tags:
+      - POST
+swagger: "2.0"
+tags:
+- description: '"микросервис по сотрудникам"'
+  name: Update
+- description: '"микросервис по сотрудникам"'
+  name: Value
+- description: '"микросервис по сотрудникам"'
+  name: Static

@@ -6,6 +6,16 @@ import (
 	"strconv"
 )
 
+// GetNumberOfVacationDays
+// @Tags GET
+// @Summary Получить количество дней отпуска.
+// @ID getNumberOfVacationDaysGet
+// @Produce plain
+// @Param employeeID query string false "идентификатор сотрудника"
+// @Success 200
+// @Failure 404
+// @Failure 500
+// @Router /api/employee/get-number-of-vacation-days{employeeID} [GET]
 func (s Handler) GetNumberOfVacationDays(w http.ResponseWriter, r *http.Request) {
 	s.log.Info("Form Value : ", r.FormValue("employeeID"))
 	requestedEmployeeID, err := strconv.ParseInt(r.FormValue("employeeID"), 10, 64)
