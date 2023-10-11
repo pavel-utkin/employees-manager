@@ -10,7 +10,7 @@ type Config struct {
 func NewConfig(log *logrus.Logger) *Config {
 	configServer := Config{
 		AddressREST: "localhost:8088",
-		DSN:         "host=localhost port=5432 user=user password=password dbname=gophkeeper sslmode=disable",
+		DSN:         "root:password@tcp(127.0.0.1:3306)/Employees",
 	}
 	return &configServer
 }

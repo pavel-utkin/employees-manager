@@ -15,9 +15,9 @@ type DB struct {
 }
 
 func New(config *config.Config, log *logrus.Logger) (*DB, error) {
-	pool, err := sql.Open("mysql", "root:password@tcp(127.0.0.1:3306)/Employees")
+	pool, err := sql.Open("mysql", config.DSN)
 	if err != nil {
-		logrus.Fatal(err)
+		log.Fatal(err)
 	}
 
 	ctx, cnl := context.WithTimeout(context.Background(), 10*time.Second)
